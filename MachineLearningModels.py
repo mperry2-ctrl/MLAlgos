@@ -12,9 +12,7 @@ def inverse_matrix(matrix):
 
 def LinearRegression(X, y):
     #Need to add a column of ones at start to account for a constant
-    ones = np.array([[1] for _ in range(len(X))])
-    rows, cols = np.shape(X)
-    X = np.append(ones, X, axis=1).reshape(rows, cols+1)
+    X = addOnes(X)
 
     #Calculating Theta using Linear Algebra
     XT = np.transpose(X)
@@ -26,9 +24,7 @@ def LinearRegression(X, y):
 
 def GradientDescent(X, y, alpha, steps):
     #Need to add a column of ones at start to account for a constant
-    ones = np.array([[1] for _ in range(len(X))])
-    rows, cols = np.shape(X)
-    X = np.append(ones, X, axis=1).reshape(rows, cols+1)
+    X = addOnes(X)
 
     #Initialize theta as a zero vector
     shape = (X.shape[1], 1)
@@ -45,6 +41,12 @@ def GradientDescent(X, y, alpha, steps):
         theta -= alpha*gradient
     return theta
 
+
+def addOnes(matrix):
+    ones = np.array([[1] for _ in range(len(matrix))])
+    rows, cols = np.shape(matrix)
+    matrix = np.append(ones, matrix, axis=1).reshape(rows, cols+1)
+    return matrix
 
 def predict(theta, x):
     #Adding a one to the start to account for a constant
